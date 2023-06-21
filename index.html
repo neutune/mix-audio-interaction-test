@@ -33,15 +33,24 @@ body {
   font-size: 64px;
 }
     </style>
-    <div class="click-to-start" onclick="event.target.style.display = 'none'; connect()">
-      TAP TO START
+    <div class="click-to-start" onclick="connect()">
+      TAP TO LOAD
+    </div>
+    <div class="click-to-start" style="display:none" onclick="play()">
+      TAP TO PLAY
     </div>
     <audio hidden>
     <script>
 
 function connect() {
+  document.getElementsByClassName('click-to-start')[0].innerText = 'LOADING...'
   initWebrtc(document.getElementsByTagName('audio')[0])
   sendData('json:[{"task":"newAIBlock", "tag":["Dance"], "packId":"nucksal-money", "section": "B", "id": 1, "nCandidates": 3}]')
+}
+
+function play() {
+  document.getElementsByClassName('click-to-start')[1].computedStyleMap.display = 'none'
+  audio.resume()
 }
 
 
