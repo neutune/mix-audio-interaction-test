@@ -1,0 +1,88 @@
+<html>
+  <body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.153.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.153.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="/main.js"></script>
+    <script src="/webrtc.js"></script>
+    <style>
+body {
+  margin: 0;
+  padding: 0;
+  overflow: clip;
+}
+
+.click-to-start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 64px;
+}
+    </style>
+    <div class="click-to-start" onclick="event.target.style.display = 'none'; connect()">
+      TAP TO START
+    </div>
+    <audio hidden>
+    <script>
+
+function connect() {
+  initWebrtc(document.getElementsByTagName('audio')[0])
+  sendData('json:[{"task":"newAIBlock", "tag":["Dance"], "packId":"nucksal-money", "section": "B", "id": 1, "nCandidates": 3}]')
+}
+
+
+function sendData(msg) {
+  if (dc.readyState == 'open') {
+    dc.send(msg)
+  } else {
+    window.setTimeout(() => sendData(msg), 1000)
+  }
+}
+
+window.blockUpdated = false
+window.taps = []
+window.moved = false
+window.downPoint = {x:0, y:0}
+window.addEventListener('pointerdown', (e) => {
+  window.moved = false
+  window.downPoint = {
+    x: (e.clientX / window.innerWidth) * 2 - 1,
+    y: - (e.clientY / window.innerHeight) * 2 + 1
+  }
+})
+window.addEventListener('pointermove', (e) => {
+  let p = {
+    x: (e.clientX / window.innerWidth) * 2 - 1,
+    y: - (e.clientY / window.innerHeight) * 2 + 1
+  } 
+  if (Math.abs(p.x - window.downPoint.x) > 0.005 || Math.abs(p.y - window.downPoint.y) > 0.005) {
+    window.moved = true
+  }
+})
+window.addEventListener('pointerup', (e) => {
+  if (!window.moved) {
+    window.taps.push({
+    x: (e.clientX / window.innerWidth) * 2 - 1,
+    y: - (e.clientY / window.innerHeight) * 2 + 1
+  })
+  }
+})
+
+    </script>
+  </body>
+  
+</html>
