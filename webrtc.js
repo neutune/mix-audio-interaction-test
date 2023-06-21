@@ -78,8 +78,8 @@ function handleMessage(message) {
         blocks = JSON.parse(data['data']['blocks'])
         console.log('block updated')
         window.blockUpdated = true
-        document.getElementsByClassName('click-to-start')[0].computedStyleMap.display = 'none'
-        document.getElementsByClassName('click-to-start')[1].computedStyleMap.display = 'flex'
+        document.getElementsByClassName('click-to-start')[0].style.display = 'none'
+        document.getElementsByClassName('click-to-start')[1].style.display = 'flex'
       }
     }
   }
