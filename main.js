@@ -148,7 +148,7 @@ function init() {
 
   window.orbit = new OrbitControls(camera, renderer.domElement);
   orbit.target = new THREE.Vector3(0,0,0); // set the center
-  orbit.rotateSpeed = 7; // control the rotate speed
+  orbit.rotateSpeed = 3; // control the rotate speed
   orbit.enableDamping = true
   orbit.enableZoom = false
   orbit.maxPolarAngle = Infinity
